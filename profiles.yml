@@ -1,0 +1,11 @@
+# my_dbt_project/profiles.yml
+gcp_composer_profile:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DBT_BIGQUERY_PROJECT') }}"
+      dataset: "{{ env_var('DBT_BIGQUERY_DATASET', 'dbt_transformed_data') }}"
+      threads: 4
+      location: "{{ env_var('DBT_BIGQUERY_LOCATION', 'US') }}"

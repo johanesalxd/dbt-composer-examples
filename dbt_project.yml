@@ -1,0 +1,30 @@
+# my_dbt_project/dbt_project.yml
+name: 'my_gcp_dbt_project'
+version: '1.0.0'
+config-version: 2
+
+# This profile will be used by dbt to connect to your data warehouse
+profile: 'gcp_composer_profile'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configure models for BigQuery.
+models:
+  my_gcp_dbt_project:
+    +materialized: view
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
